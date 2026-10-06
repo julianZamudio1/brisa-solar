@@ -1,0 +1,21 @@
+---
+// Íconos de Phosphor incrustados como SVG en el HTML: cero peticiones y se pintan con currentColor.
+import { readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
+
+interface Props {
+  nombre: string;
+  estilo?: 'regular' | 'bold' | 'fill' | 'duotone';
+  clase?: string;
+}
+
+const { nombre, estilo = 'regular', clase = '' } = Astro.props;
+
+const archivo = estilo === 'regular' ? `${nombre}.svg` : `${nombre}-${estilo}.svg`;
+const ruta = createRequire(import.meta.url).resolve(`@phosphor-icons/core/assets/${estilo}/${archivo}`);
+const svg = readFileSync(ruta, 'utf8');
+
+const html = svg.replace('<svg', `<svg class="icono ${clase}" aria-hidden="true" focusable="false"`);
+---
+
+<Fragment set:html={html} />

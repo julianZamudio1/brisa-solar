@@ -1,0 +1,49 @@
+// Estilos de ComoFunciona.astro (compartidos con el tema de WordPress)
+
+.pasos {
+  display: grid;
+  gap: 2rem;
+  margin: 0;
+  counter-reset: paso;
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem;
+    position: relative;
+
+    // Línea que une los pasos detrás de los íconos.
+    &::before {
+      content: '';
+      position: absolute;
+      top: 1.75rem;
+      left: 3.5rem;
+      right: 12%;
+      border-top: 2px dashed var(--bs-border-color);
+    }
+  }
+
+  li {
+    position: relative;
+  }
+}
+
+.paso-icono {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: var(--bs-surface);
+  border: 1px solid var(--bs-border-color);
+  color: $amber-strong;
+
+  .icono {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+}

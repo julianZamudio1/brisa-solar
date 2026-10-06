@@ -1,0 +1,48 @@
+---
+import Icono from './Icono.astro';
+import { preguntas } from '../data/preguntas';
+import { enlaceWhatsapp } from '../data/sitio';
+---
+
+<section id="preguntas" class="seccion" aria-labelledby="preguntas-titulo">
+  <div class="container">
+    <div class="row gy-5 gx-lg-5">
+      <div class="col-lg-4" data-revelar>
+        <h2 id="preguntas-titulo" class="seccion-titulo mb-3">Preguntas frecuentes</h2>
+        <div class="ayuda superficie">
+          <p class="mb-3">¿No encuentras tu respuesta? Un asesor te contesta por WhatsApp en horario de oficina.</p>
+          <a
+            class="btn btn-whatsapp d-inline-flex align-items-center gap-2"
+            href={enlaceWhatsapp('casa y tengo una duda')}
+            target="_blank"
+            rel="noopener"
+            data-evento="click_whatsapp"
+            data-ubicacion="preguntas"
+          >
+            <Icono nombre="whatsapp-logo" estilo="fill" />
+            Preguntar por WhatsApp
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-8" data-revelar style="--orden: 1">
+        <div class="acordeon">
+          {
+            preguntas.map((p) => (
+              <details name="preguntas">
+                <summary>
+                  <span>{p.pregunta}</span>
+                  <Icono nombre="plus" clase="mas" />
+                </summary>
+                <p>{p.respuesta}</p>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../scripts/preguntas';
+</script>

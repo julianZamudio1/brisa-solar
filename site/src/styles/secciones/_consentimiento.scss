@@ -1,0 +1,21 @@
+// Estilos de Consentimiento.astro (compartidos con el tema de WordPress)
+
+.consentimiento {
+  position: fixed;
+  inset: auto 1rem 1rem auto;
+  z-index: $z-consentimiento;
+  max-width: 24rem;
+  width: calc(100% - 2rem);
+
+  @include media-breakpoint-down(md) {
+    inset: auto 1rem 5.5rem 1rem;
+  }
+}
+
+.consentimiento-caja {
+  background: var(--bs-surface);
+  border: 1px solid var(--bs-border-color);
+  border-radius: $border-radius;
+  box-shadow: var(--bs-sombra);
+  padding: 1.25rem;
+}

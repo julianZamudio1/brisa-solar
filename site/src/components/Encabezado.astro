@@ -1,0 +1,70 @@
+---
+import Icono from './Icono.astro';
+import Logo from './Logo.astro';
+import { ruta, sitio } from '../data/sitio';
+
+interface Props {
+  enlacesInternos?: boolean;
+}
+const { enlacesInternos = true } = Astro.props;
+const prefijo = enlacesInternos ? '' : ruta();
+
+const enlaces = [
+  { href: '#calculadora', texto: 'Calculadora' },
+  { href: '#como-funciona', texto: 'Cómo funciona' },
+  { href: '#proyectos', texto: 'Proyectos' },
+  { href: '#preguntas', texto: 'Preguntas' },
+];
+---
+
+<header class="encabezado">
+  <div class="container d-flex align-items-center gap-3">
+    <a href={ruta()} class="marca" aria-label={`${sitio.nombre}, inicio`}>
+      <Logo />
+    </a>
+
+    <nav id="menu-principal" class="menu" aria-label="Principal">
+      <ul class="list-unstyled d-flex flex-column flex-lg-row gap-1 gap-lg-4 m-0">
+        {
+          enlaces.map((e) => (
+            <li>
+              <a href={prefijo + e.href}>{e.texto}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="ms-auto d-flex align-items-center gap-2">
+      <a
+        class="telefono d-none d-xl-inline-flex"
+        href={`tel:${sitio.telefono}`}
+        data-evento="click_telefono"
+        data-ubicacion="encabezado"
+      >
+        <Icono nombre="phone" clase="icono-sm" />
+        {sitio.telefonoVisible}
+      </a>
+      <button type="button" class="boton-icono" data-tema-boton aria-label="Cambiar tema claro u oscuro">
+        <span class="tema-claro"><Icono nombre="moon" /></span>
+        <span class="tema-oscuro"><Icono nombre="sun" /></span>
+      </button>
+      <a
+        class="btn btn-primary d-none d-sm-inline-block"
+        href={prefijo + '#cotizar'}
+        data-evento="click_cta"
+        data-ubicacion="encabezado">Cotizar gratis</a
+      >
+      <button
+        type="button"
+        class="boton-icono d-lg-none"
+        data-menu-boton
+        aria-expanded="false"
+        aria-controls="menu-principal"
+        aria-label="Abrir menú"
+      >
+        <Icono nombre="list" />
+      </button>
+    </div>
+  </div>
+</header>

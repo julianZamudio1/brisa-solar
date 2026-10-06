@@ -1,0 +1,111 @@
+// Variables de Bootstrap personalizadas. Este archivo no genera CSS: lo importan
+// main.scss y los <style> de cada componente para usar mixins y breakpoints.
+
+// Paleta: neutros fríos + un solo acento ámbar para las acciones.
+$ink: #10202b;
+$ink-soft: #4a5a66;
+$paper: #f4f7f8;
+$surface: #fcfdfd;
+$line: #dce3e7;
+$sky: #e7f0f4;
+$amber: #f4a51c;
+$amber-strong: #d98a00;
+
+$ink-dark: #e6edf1;
+$ink-soft-dark: #9fb0bb;
+$paper-dark: #0b151c;
+$surface-dark: #111e27;
+$line-dark: #22323d;
+$sky-dark: #0f1d26;
+
+$primary: $amber;
+$secondary: $ink;
+$success: #1f8a5b;
+$danger: #c2352b;
+$info: #2b6f94;
+$warning: $amber;
+$light: $paper;
+$dark: $ink;
+
+$min-contrast-ratio: 4.5;
+$color-contrast-dark: $ink;
+$color-contrast-light: $surface;
+
+$body-bg: $paper;
+$body-color: $ink;
+$body-secondary-color: $ink-soft;
+$border-color: $line;
+$link-color: $ink;
+$link-decoration: underline;
+$link-hover-color: $amber-strong;
+
+$body-bg-dark: $paper-dark;
+$body-color-dark: $ink-dark;
+$body-secondary-color-dark: $ink-soft-dark;
+$border-color-dark: $line-dark;
+$link-color-dark: $ink-dark;
+$link-hover-color-dark: $amber;
+
+$enable-dark-mode: true;
+$color-mode-type: data;
+$enable-shadows: false;
+$enable-negative-margins: true;
+
+// Tipografía autoalojada (Fontsource): títulos con carácter, texto muy legible.
+$font-family-sans-serif: 'Figtree Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+$headings-font-family: 'Bricolage Grotesque Variable', $font-family-sans-serif;
+$headings-font-weight: 700;
+$headings-line-height: 1.1;
+$font-size-base: 1.0625rem;
+$line-height-base: 1.6;
+$lead-font-size: 1.1875rem;
+$lead-font-weight: 400;
+
+// Regla de formas: botones en píldora, tarjetas e imágenes 16px, campos 10px.
+$border-radius: 1rem;
+$border-radius-sm: 0.625rem;
+$border-radius-lg: 1.25rem;
+$btn-border-radius: 50rem;
+$btn-border-radius-sm: 50rem;
+$btn-border-radius-lg: 50rem;
+$input-border-radius: 0.625rem;
+$input-border-radius-lg: 0.625rem;
+
+$btn-font-weight: 600;
+$btn-padding-y-lg: 0.875rem;
+$btn-padding-x-lg: 1.625rem;
+$btn-font-size-lg: 1.0625rem;
+$input-padding-y-lg: 0.75rem;
+$input-font-size-lg: 1.0625rem;
+$input-bg: $surface;
+$input-border-color: #b9c5cc;
+$input-focus-border-color: $amber-strong;
+$input-focus-box-shadow: 0 0 0 0.25rem rgba($amber, 0.35);
+$focus-ring-color: rgba($amber, 0.5);
+$form-label-font-weight: 600;
+$form-feedback-invalid-color: $danger;
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1280px,
+);
+
+$spacer: 1rem;
+$grid-gutter-width: 2rem; // 16px de margen lateral en móvil
+
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/variables-dark';
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
+
+// Escala de capas documentada (z-index): encabezado, barra móvil, aviso de cookies.
+$z-encabezado: 1030;
+$z-barra-movil: 1035;
+$z-consentimiento: 1040;
+
+$sombra-suave: 0 1px 2px rgba($ink, 0.06), 0 12px 32px -12px rgba($ink, 0.18);
+$curva: cubic-bezier(0.16, 1, 0.3, 1);

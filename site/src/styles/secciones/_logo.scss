@@ -1,0 +1,17 @@
+// Estilos de Logo.astro (compartidos con el tema de WordPress)
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--bs-heading-font-family, 'Bricolage Grotesque Variable', sans-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.logo strong {
+  font-weight: 800;
+}
+[data-bs-theme="dark"] .logo .fondo {
+  fill: #1b2e3a;
+}

@@ -1,0 +1,108 @@
+// Estilos de Encabezado.astro (compartidos con el tema de WordPress)
+
+.encabezado {
+  position: sticky;
+  top: 0;
+  z-index: $z-encabezado;
+  background: color-mix(in srgb, var(--bs-body-bg) 88%, transparent);
+  backdrop-filter: saturate(160%) blur(12px);
+  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  border-bottom: 1px solid var(--bs-border-color);
+
+  > .container {
+    height: 4.25rem;
+  }
+}
+
+.marca {
+  color: var(--bs-body-color);
+  text-decoration: none;
+  flex: none;
+}
+
+.menu {
+  a {
+    color: var(--bs-body-color);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 0;
+    display: block;
+
+    &:hover {
+      color: var(--bs-secondary-color);
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    margin-left: 2rem;
+  }
+
+  @include media-breakpoint-down(lg) {
+    position: absolute;
+    inset: 4.25rem 0 auto 0;
+    background: var(--bs-body-bg);
+    border-bottom: 1px solid var(--bs-border-color);
+    padding: 0.5rem 1.5rem 1.25rem;
+    display: none;
+
+    &.abierto {
+      display: block;
+    }
+
+    a {
+      font-size: 1.125rem;
+      padding: 0.625rem 0;
+    }
+  }
+}
+
+.telefono {
+  align-items: center;
+  gap: 0.375rem;
+  font-weight: 600;
+  color: var(--bs-body-color);
+  text-decoration: none;
+  margin-right: 0.5rem;
+}
+
+.boton-icono {
+  display: inline-grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--bs-border-color);
+  background: transparent;
+  color: var(--bs-body-color);
+
+  &:hover {
+    background: var(--bs-sky);
+  }
+
+  .icono {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+.tema-oscuro {
+  display: none;
+}
+
+[data-bs-theme='dark'] {
+  .tema-claro {
+    display: none;
+  }
+  .tema-oscuro {
+    display: inline;
+  }
+}
+
+// Con la barra de administración de WordPress visible, el encabezado fijo baja para no quedar debajo.
+.admin-bar .encabezado {
+  top: 32px;
+
+  @media (max-width: 782px) {
+    top: 46px;
+  }
+}

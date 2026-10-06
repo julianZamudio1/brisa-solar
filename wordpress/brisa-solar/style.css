@@ -1,0 +1,16 @@
+/*
+Theme Name: Brisa Solar
+Theme URI: https://github.com/julianZamudio1/brisa-solar
+Author: Eduardo Julián Zamudio Govea
+Description: Tema clásico para la landing de captación de Brisa Solar. Comparte CSS (Bootstrap 5.3 personalizado) y JavaScript con la versión en Astro. Incluye calculadora de ahorro, formulario de cotización que guarda prospectos en el administrador, Google Consent Mode v2 y tipos de contenido para proyectos, testimonios y preguntas.
+Version: 1.0.0
+Requires at least: 6.4
+Tested up to: 6.8
+Requires PHP: 8.1
+License: GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: brisa-solar
+Tags: one-column, custom-menu, custom-logo, theme-options, translation-ready
+*/
+
+/* Los estilos reales están en assets/css/brisa.css (generado desde site/src/styles con npm run tema). */

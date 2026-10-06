@@ -1,0 +1,67 @@
+---
+import { Picture } from 'astro:assets';
+import Icono from './Icono.astro';
+import foto from '../assets/fotos/hero-instalador.jpg';
+import { enlaceWhatsapp } from '../data/sitio';
+
+const garantias = [
+  { icono: 'shield-check', texto: '25 años de garantía en paneles' },
+  { icono: 'file-text', texto: 'Trámite con CFE incluido' },
+  { icono: 'credit-card', texto: 'Financiamiento de 12 a 48 meses' },
+  { icono: 'calendar-check', texto: 'Instalación en 1 o 2 días' },
+];
+---
+
+<section class="hero" aria-labelledby="hero-titulo">
+  <div class="container">
+    <div class="row align-items-center gy-5">
+      <div class="col-lg-6 hero-texto">
+        <span class="etiqueta">Instalación en Querétaro y el Bajío</span>
+        <h1 id="hero-titulo">Paga hasta 95% menos de luz con energía solar</h1>
+        <p class="lead">
+          Diseñamos el sistema, lo instalamos y tramitamos tu interconexión con CFE. Calcula tu ahorro en 30 segundos.
+        </p>
+        <div class="d-flex flex-wrap gap-3">
+          <a class="btn btn-primary btn-lg" href="#calculadora" data-evento="click_cta" data-ubicacion="hero">
+            Calcular mi ahorro
+          </a>
+          <a
+            class="btn btn-whatsapp btn-lg d-inline-flex align-items-center gap-2"
+            href={enlaceWhatsapp()}
+            target="_blank"
+            rel="noopener"
+            data-evento="click_whatsapp"
+            data-ubicacion="hero"
+          >
+            <Icono nombre="whatsapp-logo" estilo="fill" />
+            WhatsApp
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="foto hero-foto">
+          <Picture
+            src={foto}
+            formats={['avif', 'webp']}
+            widths={[480, 720, 960, 1280]}
+            sizes="(min-width: 1400px) 620px, (min-width: 992px) 46vw, 92vw"
+            alt="Instalador con arnés fijando un panel solar en el techo de una casa"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+
+    <ul class="garantias list-unstyled" aria-label="Lo que incluye cada instalación">
+      {
+        garantias.map((g) => (
+          <li>
+            <Icono nombre={g.icono} estilo="duotone" />
+            <span>{g.texto}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

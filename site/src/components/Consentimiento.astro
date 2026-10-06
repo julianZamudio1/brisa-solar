@@ -1,0 +1,36 @@
+---
+import { ruta } from '../data/sitio';
+---
+
+<section class="consentimiento" aria-labelledby="consentimiento-titulo" hidden data-consentimiento>
+  <div class="consentimiento-caja">
+    <h2 id="consentimiento-titulo" class="h6 mb-1">Cookies y medición</h2>
+    <p class="mb-3 small">
+      Usamos cookies para medir visitas y mostrar anuncios relevantes. Solo se activan si aceptas.
+      <a href={ruta('aviso-de-privacidad/')}>Aviso de privacidad</a>.
+    </p>
+    <div class="mb-3" role="group" aria-label="Tipos de cookies" data-consentimiento-detalle hidden>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="c-necesarias" checked disabled />
+        <label class="form-check-label" for="c-necesarias">Necesarias (siempre activas)</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="c-analitica" name="analitica" />
+        <label class="form-check-label" for="c-analitica">Analítica (Google Analytics)</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="c-publicidad" name="publicidad" />
+        <label class="form-check-label" for="c-publicidad">Publicidad (Google Ads y Meta)</label>
+      </div>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <button type="button" class="btn btn-primary btn-sm px-3" data-accion="aceptar">Aceptar todas</button>
+      <button type="button" class="btn btn-outline-secondary btn-sm px-3" data-accion="rechazar">Solo necesarias</button>
+      <button type="button" class="btn btn-link btn-sm" data-accion="configurar">Configurar</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../scripts/consentimiento';
+</script>

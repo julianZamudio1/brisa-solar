@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import Encabezado from '../components/Encabezado.astro';
+import Pie from '../components/Pie.astro';
+import { sitio } from '../data/sitio';
+
+const d = sitio.direccion;
+---
+
+<Base titulo="Aviso de privacidad | Brisa Solar" descripcion="Cómo Brisa Solar trata los datos personales de quienes solicitan una cotización.">
+  <Encabezado enlacesInternos={false} />
+  <main id="contenido" class="seccion">
+    <article class="container legal">
+      <h1 class="seccion-titulo mb-4">Aviso de privacidad</h1>
+      <p class="seccion-texto">
+        Texto de ejemplo para un sitio de demostración. Un negocio real debe redactarlo con asesoría legal conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.
+      </p>
+
+      <h2 class="h4">Responsable</h2>
+      <p>{sitio.nombre}, con domicilio en {d.calle}, {d.colonia}, {d.ciudad}, {d.estado}, C.P. {d.cp}, es responsable del tratamiento de tus datos personales.</p>
+
+      <h2 class="h4">Datos que recabamos</h2>
+      <p>Nombre, teléfono, correo electrónico, código postal, tipo de inmueble y monto aproximado de tu recibo de luz. No recabamos datos sensibles.</p>
+
+      <h2 class="h4">Para qué los usamos</h2>
+      <p>Para contactarte, agendar la visita técnica y elaborar tu cotización. De forma secundaria, y solo si lo aceptas en el aviso de cookies, para medir el desempeño de nuestros anuncios.</p>
+
+      <h2 class="h4">Cookies y medición</h2>
+      <p>Usamos Google Tag Manager, Google Analytics 4 y el Pixel de Meta únicamente con tu consentimiento. Puedes cambiar tu decisión en cualquier momento desde “Preferencias de cookies” al pie de la página.</p>
+
+      <h2 class="h4">Derechos ARCO</h2>
+      <p>Puedes acceder, rectificar, cancelar u oponerte al tratamiento de tus datos escribiendo a <a href={`mailto:${sitio.correo}`}>{sitio.correo}</a>.</p>
+    </article>
+  </main>
+  <Pie />
+</Base>

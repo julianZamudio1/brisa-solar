@@ -1,0 +1,29 @@
+---
+// Fachada de YouTube: muestra un póster propio y solo carga el reproductor (unos 800 KB
+// de JS de terceros) cuando el visitante da clic. Usa youtube-nocookie por privacidad.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Icono from './Icono.astro';
+
+interface Props {
+  id: string;
+  titulo: string;
+  poster: ImageMetadata;
+  alt: string;
+  subtitulos?: string;
+}
+
+const { id, titulo, poster, alt, subtitulos = 'es' } = Astro.props;
+const src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&cc_load_policy=1&cc_lang_pref=${subtitulos}&hl=${subtitulos}`;
+---
+
+<div class="video foto" data-video={src} data-titulo={titulo}>
+  <Image src={poster} alt={alt} widths={[640, 960, 1280]} sizes="(min-width: 1200px) 1140px, 92vw" />
+  <button type="button" class="video-play" aria-label={`Reproducir video: ${titulo}`}>
+    <Icono nombre="play" estilo="fill" />
+  </button>
+</div>
+
+<script>
+  import '../scripts/video';
+</script>

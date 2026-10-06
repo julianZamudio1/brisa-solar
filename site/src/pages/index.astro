@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import Encabezado from '../components/Encabezado.astro';
+import Hero from '../components/Hero.astro';
+import Calculadora from '../components/Calculadora.astro';
+import ComoFunciona from '../components/ComoFunciona.astro';
+import Beneficios from '../components/Beneficios.astro';
+import Proyectos from '../components/Proyectos.astro';
+import Testimonios from '../components/Testimonios.astro';
+import Preguntas from '../components/Preguntas.astro';
+import Cotizar from '../components/Cotizar.astro';
+import Pie from '../components/Pie.astro';
+import { preguntas } from '../data/preguntas';
+import { sitio } from '../data/sitio';
+
+const url = new URL(import.meta.env.BASE_URL, Astro.site).href;
+
+const negocio = {
+  '@context': 'https://schema.org',
+  '@type': 'HomeAndConstructionBusiness',
+  '@id': `${url}#negocio`,
+  name: sitio.nombre,
+  description: sitio.descripcion,
+  url,
+  telephone: sitio.telefono,
+  email: sitio.correo,
+  priceRange: '$$',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: sitio.direccion.calle,
+    addressLocality: sitio.direccion.ciudad,
+    addressRegion: sitio.direccion.estado,
+    postalCode: sitio.direccion.cp,
+    addressCountry: 'MX',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: sitio.geo.lat, longitude: sitio.geo.lng },
+  areaServed: ['Querétaro', 'Guanajuato', 'San Luis Potosí'],
+  openingHoursSpecification: [
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '09:00', closes: '18:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:00', closes: '14:00' },
+  ],
+  sameAs: Object.values(sitio.redes),
+};
+
+const faq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: preguntas.map((p) => ({
+    '@type': 'Question',
+    name: p.pregunta,
+    acceptedAnswer: { '@type': 'Answer', text: p.respuesta },
+  })),
+};
+---
+
+<Base titulo="Paneles solares en Querétaro | Cotización gratis | Brisa Solar" esquema={[negocio, faq]}>
+  <Encabezado />
+  <main id="contenido">
+    <Hero />
+    <Calculadora />
+    <ComoFunciona />
+    <Beneficios />
+    <Proyectos />
+    <Testimonios />
+    <Preguntas />
+    <Cotizar />
+  </main>
+  <Pie />
+</Base>

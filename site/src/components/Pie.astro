@@ -1,0 +1,72 @@
+---
+import Icono from './Icono.astro';
+import Logo from './Logo.astro';
+import { enlaceWhatsapp, ruta, sitio } from '../data/sitio';
+
+const anio = new Date().getFullYear();
+const d = sitio.direccion;
+---
+
+<footer class="pie">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-lg-5">
+        <Logo />
+        <p class="text-body-secondary mt-3 mb-0" style="max-width: 36ch">{sitio.descripcion}</p>
+      </div>
+      <div class="col-6 col-lg-3">
+        <h2 class="h6">Oficina</h2>
+        <address class="text-body-secondary mb-0">
+          {d.calle}<br />{d.colonia}, C.P. {d.cp}<br />{d.ciudad}, {d.estado}
+        </address>
+      </div>
+      <div class="col-6 col-lg-4">
+        <h2 class="h6">Contacto</h2>
+        <ul class="list-unstyled text-body-secondary mb-3">
+          <li><a href={`tel:${sitio.telefono}`} data-evento="click_telefono" data-ubicacion="pie">{sitio.telefonoVisible}</a></li>
+          <li><a href={`mailto:${sitio.correo}`} data-evento="click_correo" data-ubicacion="pie">{sitio.correo}</a></li>
+        </ul>
+        <div class="d-flex gap-2">
+          <a class="red" href={sitio.redes.facebook} target="_blank" rel="noopener" aria-label="Facebook">
+            <Icono nombre="facebook-logo" />
+          </a>
+          <a class="red" href={sitio.redes.instagram} target="_blank" rel="noopener" aria-label="Instagram">
+            <Icono nombre="instagram-logo" />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pie-legal">
+      <p class="m-0">© {anio} {sitio.nombre}. Empresa ficticia creada como proyecto de portafolio; datos y testimonios de demostración.</p>
+      <ul class="list-unstyled d-flex flex-wrap gap-3 m-0">
+        <li><a href={ruta('aviso-de-privacidad/')}>Aviso de privacidad</a></li>
+        <li><a href="#" data-abrir-consentimiento>Preferencias de cookies</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<a
+  class="whatsapp-flotante d-none d-lg-grid"
+  href={enlaceWhatsapp()}
+  target="_blank"
+  rel="noopener"
+  aria-label="Escríbenos por WhatsApp"
+  data-evento="click_whatsapp"
+  data-ubicacion="flotante"
+>
+  <Icono nombre="whatsapp-logo" estilo="fill" />
+</a>
+
+<nav class="barra-movil d-lg-none" aria-label="Acciones rápidas">
+  <a href={`tel:${sitio.telefono}`} data-evento="click_telefono" data-ubicacion="barra_movil">
+    <Icono nombre="phone" />Llamar
+  </a>
+  <a href={enlaceWhatsapp()} target="_blank" rel="noopener" data-evento="click_whatsapp" data-ubicacion="barra_movil">
+    <Icono nombre="whatsapp-logo" />WhatsApp
+  </a>
+  <a class="principal" href={ruta() + '#cotizar'} data-evento="click_cta" data-ubicacion="barra_movil">
+    <Icono nombre="calendar-check" />Cotizar
+  </a>
+</nav>

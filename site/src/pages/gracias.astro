@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import Encabezado from '../components/Encabezado.astro';
+import Icono from '../components/Icono.astro';
+import Pie from '../components/Pie.astro';
+import { enlaceWhatsapp, ruta } from '../data/sitio';
+---
+
+<Base titulo="Recibimos tu solicitud | Brisa Solar" indexar={false}>
+  <Encabezado enlacesInternos={false} />
+  <main id="contenido" class="seccion">
+    <div class="container" style="max-width: 46rem">
+      <div class="confirmacion">
+        <Icono nombre="check-circle" estilo="duotone" clase="check" />
+        <h1 class="seccion-titulo mt-3 mb-3">Recibimos tu solicitud</h1>
+        <p class="seccion-texto">
+          Un asesor te llamará en menos de un día hábil para agendar la visita técnica. Tu folio es
+          <strong data-folio>en proceso</strong>.
+        </p>
+
+        <h2 class="h5 mt-5 mb-3">Para adelantar la visita, ten a la mano:</h2>
+        <ul class="lista">
+          <li>Tu último recibo de CFE (una foto basta).</li>
+          <li>Fotos del techo o la azotea donde irían los paneles.</li>
+          <li>La ubicación de tu medidor de luz.</li>
+        </ul>
+
+        <div class="d-flex flex-wrap gap-3 mt-5">
+          <a class="btn btn-whatsapp btn-lg d-inline-flex align-items-center gap-2" href={enlaceWhatsapp('casa. Ya llené el formulario y quiero enviar mi recibo')} target="_blank" rel="noopener" data-evento="click_whatsapp" data-ubicacion="gracias">
+            <Icono nombre="whatsapp-logo" estilo="fill" />
+            Enviar recibo por WhatsApp
+          </a>
+          <a class="btn btn-outline-secondary btn-lg" href={ruta()}>Volver al inicio</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <Pie />
+</Base>
+
+<script>
+  import '../scripts/gracias';
+</script>

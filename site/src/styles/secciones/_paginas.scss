@@ -1,0 +1,20 @@
+// Estilos de páginas internas (gracias y aviso de privacidad)
+
+.confirmacion .check {
+  width: 4rem;
+  height: 4rem;
+  color: $success;
+}
+
+.lista {
+  display: grid;
+  gap: 0.5rem;
+  padding-left: 1.25rem;
+}
+
+.legal {
+  max-width: 46rem;
+}
+.legal h2 {
+  margin-top: 2.5rem;
+}

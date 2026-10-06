@@ -1,0 +1,35 @@
+// Estilos de Testimonios.astro (compartidos con el tema de WordPress)
+
+.testimonios {
+  background: var(--bs-sky);
+}
+
+.estrellas {
+  display: flex;
+  gap: 0.25rem;
+  color: $amber-strong;
+  margin-bottom: 1.25rem;
+}
+
+.destacado blockquote p {
+  font-family: $headings-font-family;
+  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.125rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+
+.testimonios figcaption {
+  display: flex;
+  flex-direction: column;
+
+  span {
+    color: var(--bs-secondary-color);
+    font-size: 0.9375rem;
+  }
+}
+
+.cita {
+  padding: 1.5rem;
+}

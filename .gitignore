@@ -1,0 +1,19 @@
+# Dependencias y builds
+node_modules/
+site/dist/
+site/.astro/
+site/test-results/
+site/playwright-report/
+
+# Datos y configuración del servidor (nunca al repositorio)
+site/public/api/config.php
+site/public/api/inc/datos/
+brisa-config.php
+*.sqlite
+
+# Editores y sistema
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+*.log

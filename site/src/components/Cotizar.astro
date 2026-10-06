@@ -1,0 +1,155 @@
+---
+import Icono from './Icono.astro';
+import { config, enlaceWhatsapp, ruta, sitio } from '../data/sitio';
+
+const d = sitio.direccion;
+const direccion = `${d.calle}, ${d.colonia}, ${d.ciudad}, ${d.estado}, C.P. ${d.cp}`;
+const { lat, lng } = sitio.geo;
+const mapa = `https://www.openstreetmap.org/export/embed.html?bbox=${lng - 0.006}%2C${lat - 0.004}%2C${lng + 0.006}%2C${lat + 0.004}&layer=mapnik&marker=${lat}%2C${lng}`;
+const comoLlegar = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+const accion = config.modoDemo ? '' : ruta(config.endpointFormulario);
+---
+
+<section id="cotizar" class="seccion cotizar" aria-labelledby="cotizar-titulo">
+  <div class="container">
+    <div class="row gy-5 gx-lg-5">
+      <div class="col-lg-7" data-revelar>
+        <h2 id="cotizar-titulo" class="seccion-titulo mb-3">Agenda tu visita técnica gratis</h2>
+        <p class="seccion-texto mb-4">Te llamamos en menos de un día hábil para confirmar la fecha. Sin compromiso de compra.</p>
+
+        <form
+          class="formulario superficie"
+          method="post"
+          action={accion}
+          novalidate
+          data-formulario
+          data-modo-demo={config.modoDemo ? 'true' : undefined}
+          data-gracias={ruta('gracias/')}
+        >
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label" for="f-nombre">Nombre completo</label>
+              <input class="form-control form-control-lg" id="f-nombre" name="nombre" type="text" autocomplete="name" required minlength="3" maxlength="80" aria-describedby="f-nombre-error" />
+              <p class="invalid-feedback" id="f-nombre-error"></p>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="f-telefono">Teléfono o WhatsApp</label>
+              <input class="form-control form-control-lg" id="f-telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" required pattern="[\d\s()+\-]{10,18}" aria-describedby="f-telefono-ayuda f-telefono-error" />
+              <p class="form-text m-0" id="f-telefono-ayuda">10 dígitos, por ejemplo 442 123 4567.</p>
+              <p class="invalid-feedback" id="f-telefono-error"></p>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="f-correo">Correo <span class="fw-normal text-body-secondary">(opcional)</span></label>
+              <input class="form-control form-control-lg" id="f-correo" name="correo" type="email" autocomplete="email" maxlength="120" aria-describedby="f-correo-error" />
+              <p class="invalid-feedback" id="f-correo-error"></p>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="f-cp">Código postal</label>
+              <input class="form-control form-control-lg" id="f-cp" name="codigo_postal" type="text" inputmode="numeric" autocomplete="postal-code" required pattern="\d{5}" maxlength="5" aria-describedby="f-cp-error" />
+              <p class="invalid-feedback" id="f-cp-error"></p>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="f-tipo">Tipo de inmueble</label>
+              <select class="form-select form-select-lg" id="f-tipo" name="tipo_inmueble" required aria-describedby="f-tipo-error">
+                <option value="casa">Casa</option>
+                <option value="negocio">Negocio o industria</option>
+              </select>
+              <p class="invalid-feedback" id="f-tipo-error"></p>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="f-recibo">Recibo bimestral aproximado</label>
+              <div class="input-group input-group-lg has-validation">
+                <span class="input-group-text">$</span>
+                <input class="form-control" id="f-recibo" name="recibo_bimestral" type="number" inputmode="numeric" min="100" max="2000000" step="1" required aria-describedby="f-recibo-error" />
+                <p class="invalid-feedback" id="f-recibo-error"></p>
+              </div>
+            </div>
+            <div class="col-12">
+              <label class="form-label" for="f-mensaje">Comentarios <span class="fw-normal text-body-secondary">(opcional)</span></label>
+              <textarea class="form-control" id="f-mensaje" name="mensaje" rows="3" maxlength="600"></textarea>
+            </div>
+
+            <!-- Trampa para bots: invisible para personas, los bots suelen llenarla. -->
+            <div class="trampa" aria-hidden="true">
+              <label for="f-sitio">Sitio web</label>
+              <input id="f-sitio" name="sitio_web" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+            <input type="hidden" name="inicio" value="" data-inicio />
+            <input type="hidden" name="id_evento" value="" />
+            <input type="hidden" name="origen" value="" />
+
+            <div class="col-12">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="f-privacidad" name="acepta_privacidad" value="1" required aria-describedby="f-privacidad-error" />
+                <label class="form-check-label" for="f-privacidad">
+                  Acepto el <a href={ruta('aviso-de-privacidad/')} target="_blank">aviso de privacidad</a>.
+                </label>
+                <p class="invalid-feedback" id="f-privacidad-error"></p>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="alert alert-danger d-none" role="alert" data-error-envio>
+                <span data-error-detalle></span>No pudimos enviar tu solicitud. Inténtalo de nuevo o escríbenos por
+                <a href={enlaceWhatsapp()} target="_blank" rel="noopener">WhatsApp</a>.
+              </div>
+              <button class="btn btn-primary btn-lg w-100 enviar" type="submit">
+                <span class="enviar-texto">Agendar visita gratis</span>
+                <span class="enviar-cargando" aria-hidden="true">Enviando…</span>
+              </button>
+              {config.modoDemo && <p class="small text-body-secondary text-center mt-2 mb-0">Sitio de demostración: el formulario no envía datos.</p>}
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <aside class="col-lg-5" aria-label="Otras formas de contacto" data-revelar style="--orden: 1">
+        <ul class="contacto list-unstyled">
+          <li>
+            <Icono nombre="whatsapp-logo" />
+            <div>
+              <strong>WhatsApp</strong>
+              <a href={enlaceWhatsapp()} target="_blank" rel="noopener" data-evento="click_whatsapp" data-ubicacion="contacto">Enviar mensaje</a>
+            </div>
+          </li>
+          <li>
+            <Icono nombre="phone" />
+            <div>
+              <strong>Teléfono</strong>
+              <a href={`tel:${sitio.telefono}`} data-evento="click_telefono" data-ubicacion="contacto">{sitio.telefonoVisible}</a>
+            </div>
+          </li>
+          <li>
+            <Icono nombre="envelope-simple" />
+            <div>
+              <strong>Correo</strong>
+              <a href={`mailto:${sitio.correo}`} data-evento="click_correo" data-ubicacion="contacto">{sitio.correo}</a>
+            </div>
+          </li>
+          <li>
+            <Icono nombre="clock" />
+            <div>
+              <strong>Horario</strong>
+              <span>{sitio.horario}</span>
+            </div>
+          </li>
+        </ul>
+
+        <div class="mapa foto" data-mapa={mapa}>
+          <div class="mapa-fachada">
+            <Icono nombre="map-pin" estilo="duotone" />
+            <address class="m-0">{direccion}</address>
+            <div class="d-flex flex-wrap justify-content-center gap-2">
+              <button type="button" class="btn btn-outline-secondary btn-sm px-3" data-cargar-mapa>Ver mapa</button>
+              <a class="btn btn-outline-secondary btn-sm px-3" href={comoLlegar} target="_blank" rel="noopener" data-evento="click_como_llegar" data-ubicacion="contacto">Cómo llegar</a>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../scripts/cotizar';
+</script>

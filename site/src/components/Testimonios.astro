@@ -1,0 +1,43 @@
+---
+import Icono from './Icono.astro';
+import { testimonios } from '../data/contenido';
+
+const destacado = testimonios.find((t) => t.destacado)!;
+const otros = testimonios.filter((t) => !t.destacado);
+---
+
+<section class="seccion testimonios" aria-labelledby="testimonios-titulo">
+  <div class="container">
+    <h2 id="testimonios-titulo" class="visually-hidden">Lo que dicen nuestros clientes</h2>
+    <div class="row gy-4 gx-lg-5 align-items-center">
+      <figure class="col-lg-7 m-0 destacado" data-revelar>
+        <div class="estrellas" role="img" aria-label="Calificación: 5 de 5">
+          {Array.from({ length: 5 }, () => <Icono nombre="star" estilo="fill" />)}
+        </div>
+        <blockquote class="m-0">
+          <p>“{destacado.texto}”</p>
+        </blockquote>
+        <figcaption>
+          <strong>{destacado.nombre}</strong>
+          <span>{destacado.detalle}</span>
+        </figcaption>
+      </figure>
+
+      <div class="col-lg-5 d-grid gap-3">
+        {
+          otros.map((t, i) => (
+            <figure class="m-0 cita superficie" data-revelar style={`--orden: ${i + 1}`}>
+              <blockquote class="m-0">
+                <p class="mb-3">“{t.texto}”</p>
+              </blockquote>
+              <figcaption>
+                <strong>{t.nombre}</strong>
+                <span>{t.detalle}</span>
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

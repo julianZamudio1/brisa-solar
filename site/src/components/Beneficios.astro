@@ -1,0 +1,48 @@
+---
+import { Image } from 'astro:assets';
+import Icono from './Icono.astro';
+import fotoPanel from '../assets/fotos/panel-detalle.jpg';
+import fotoCasco from '../assets/fotos/garantia-casco.jpg';
+---
+
+<section class="seccion pt-0" aria-labelledby="beneficios-titulo">
+  <div class="container">
+    <h2 id="beneficios-titulo" class="seccion-titulo mb-5" data-revelar>Lo que cambia cuando instalas con nosotros</h2>
+
+    <div class="bento">
+      <article class="celda celda-panel" data-revelar>
+        <Image src={fotoPanel} alt="" widths={[480, 800, 1100]} sizes="(min-width: 992px) 62vw, 92vw" class="celda-fondo" />
+        <div class="celda-contenido">
+          <h3 class="h4">Paneles y microinversores con 25 años de garantía</h3>
+          <p class="mb-0">Usamos marcas de primer nivel con garantía de fábrica por escrito. Si algo falla, nosotros hacemos el reclamo.</p>
+        </div>
+      </article>
+
+      <article class="celda celda-cielo" data-revelar style="--orden: 1">
+        <Icono nombre="device-mobile" estilo="duotone" clase="celda-icono" />
+        <h3 class="h5">Monitoreo desde tu celular</h3>
+        <p class="mb-0 text-body-secondary">Ves cuánto genera tu sistema cada día. Si la producción baja, te avisamos antes de que lo notes en el recibo.</p>
+      </article>
+
+      <article class="celda celda-ambar" data-revelar>
+        <p class="cifra-grande" aria-hidden="true">100%</p>
+        <h3 class="h5">Deducible para tu negocio</h3>
+        <p class="mb-0">La Ley del ISR (art. 34, fracc. XIII) permite deducir en un año el equipo de energía renovable. Confírmalo con tu contador.</p>
+      </article>
+
+      <article class="celda celda-foto" data-revelar style="--orden: 1">
+        <Image src={fotoCasco} alt="Casco de seguridad sobre un panel solar" widths={[400, 640]} sizes="(min-width: 992px) 30vw, 92vw" />
+        <div class="celda-pie">
+          <h3 class="h5 mb-1">Instaladores certificados</h3>
+          <p class="mb-0 small">Personal con estándar CONOCER EC0586 y seguro de responsabilidad civil.</p>
+        </div>
+      </article>
+
+      <article class="celda" data-revelar style="--orden: 2">
+        <Icono nombre="hand-coins" estilo="duotone" clase="celda-icono" />
+        <h3 class="h5">Paga con lo que ahorras</h3>
+        <p class="mb-0 text-body-secondary">Financiamiento de 12 a 48 meses. En muchos casos la mensualidad es menor que el recibo que dejas de pagar.</p>
+      </article>
+    </div>
+  </div>
+</section>

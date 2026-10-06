@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets';
+import Icono from './Icono.astro';
+import type { ImageMetadata } from 'astro';
+import { proyectos as datos } from '../data/contenido';
+
+const fotos = import.meta.glob<{ default: ImageMetadata }>('../assets/fotos/proyecto-*.jpg', { eager: true });
+const proyectos = datos.map((p) => ({ ...p, foto: fotos[`../assets/fotos/${p.foto}.jpg`].default }));
+
+const pesos = (n: number) => n.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
+---
+
+<section id="proyectos" class="seccion proyectos" aria-labelledby="proyectos-titulo">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-end justify-content-between gap-3 mb-4" data-revelar>
+      <div>
+        <span class="etiqueta">Proyectos recientes</span>
+        <h2 id="proyectos-titulo" class="seccion-titulo m-0">Recibos antes y después</h2>
+      </div>
+      <div class="d-flex gap-2" data-carrusel-controles>
+        <button type="button" class="flecha" data-dir="-1" aria-label="Proyecto anterior" aria-controls="carrusel-proyectos">
+          <Icono nombre="arrow-left" />
+        </button>
+        <button type="button" class="flecha" data-dir="1" aria-label="Proyecto siguiente" aria-controls="carrusel-proyectos">
+          <Icono nombre="arrow-right" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <ul id="carrusel-proyectos" class="carrusel list-unstyled" tabindex="0" aria-label="Carrusel de proyectos" data-carrusel>
+    {
+      proyectos.map((p) => (
+        <li class="tarjeta">
+          <div class="foto tarjeta-foto">
+            <Image src={p.foto} alt={p.alt} widths={[420, 640, 860]} sizes="(min-width: 992px) 420px, 82vw" />
+          </div>
+          <h3 class="h5 mt-3 mb-2">{p.lugar}</h3>
+          <p class="text-body-secondary mb-3">
+            {p.kwp.toLocaleString('es-MX')} kWp, {p.paneles} paneles
+          </p>
+          <div class="antes-despues">
+            <div>
+              <span>Antes</span>
+              <s>{pesos(p.antes)}</s>
+            </div>
+            <Icono nombre="arrow-right" clase="icono-sm" />
+            <div>
+              <span>Ahora</span>
+              <strong>{pesos(p.despues)}</strong>
+            </div>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<script>
+  import '../scripts/carrusel';
+</script>

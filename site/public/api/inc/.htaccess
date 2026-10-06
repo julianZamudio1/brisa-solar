@@ -1,0 +1,2 @@
+# Código interno y base de datos: nunca se sirven directamente.
+Require all denied

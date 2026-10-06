@@ -1,0 +1,141 @@
+---
+import Icono from './Icono.astro';
+import { calcular, pesos, HSP, SUPUESTOS, TARIFA } from '../lib/calculadora';
+
+// Valores iniciales calculados en el build: la sección se ve completa aunque el JS no cargue.
+const inicial = calcular({ reciboBimestral: 2500, tipo: 'casa', region: 'centro' });
+const numero = new Intl.NumberFormat('es-MX', { maximumFractionDigits: 1 });
+---
+
+<section id="calculadora" class="seccion calculadora" aria-labelledby="calc-titulo">
+  <div class="container">
+    <div class="row gy-5 gx-lg-5 align-items-start">
+      <div class="col-lg-5" data-revelar>
+        <h2 id="calc-titulo" class="seccion-titulo mb-3">¿Cuánto ahorrarías con paneles?</h2>
+        <p class="seccion-texto mb-4">Mueve la barra con el monto de tu último recibo de CFE. El cálculo es inmediato y no pedimos tus datos para verlo.</p>
+
+        <form class="calc-form" data-calculadora novalidate>
+          <div class="mb-4">
+            <div class="d-flex justify-content-between align-items-end mb-2">
+              <label for="calc-recibo" class="form-label m-0">Recibo bimestral</label>
+              <div class="monto">
+                <span aria-hidden="true">$</span>
+                <input
+                  type="number"
+                  id="calc-recibo-numero"
+                  name="recibo_numero"
+                  inputmode="numeric"
+                  min="0"
+                  max="200000"
+                  step="50"
+                  value="2500"
+                  aria-label="Monto del recibo bimestral en pesos"
+                />
+              </div>
+            </div>
+            <input
+              type="range"
+              class="form-range"
+              id="calc-recibo"
+              name="recibo"
+              min="300"
+              max="15000"
+              step="50"
+              value="2500"
+              aria-valuetext="2,500 pesos"
+            />
+            <div class="d-flex justify-content-between small text-body-secondary">
+              <span>$300</span><span>$15,000 o más</span>
+            </div>
+          </div>
+
+          <fieldset class="mb-4">
+            <legend class="form-label">¿Dónde se instalaría?</legend>
+            <div class="segmentado">
+              <input type="radio" class="btn-check" name="tipo" id="calc-casa" value="casa" checked />
+              <label for="calc-casa"><Icono nombre="house-line" />Casa</label>
+              <input type="radio" class="btn-check" name="tipo" id="calc-negocio" value="negocio" />
+              <label for="calc-negocio"><Icono nombre="storefront" />Negocio</label>
+            </div>
+          </fieldset>
+
+          <div>
+            <label for="calc-region" class="form-label">Región</label>
+            <select id="calc-region" name="region" class="form-select form-select-lg">
+              <option value="norte">Norte (Son., Chih., N.L.)</option>
+              <option value="centro" selected>Centro y Bajío (Qro., Gto., CDMX)</option>
+              <option value="sur">Sur y Sureste (Ver., Tab., Yuc.)</option>
+            </select>
+          </div>
+          <button type="submit" class="visually-hidden">Calcular</button>
+        </form>
+      </div>
+
+      <div class="col-lg-7" data-revelar style="--orden: 1">
+        <div class="resultado" data-resultado aria-live="polite">
+          <div class="resultado-principal">
+            <p class="m-0 text-body-secondary">Ahorro estimado al año</p>
+            <p class="cifra m-0" data-r="ahorroAnual">{pesos(inicial.ahorroAnual)}</p>
+            <p class="m-0">
+              Tu recibo pasaría de <strong data-r="recibo">{pesos(2500)}</strong> a <strong data-r="reciboNuevo">{pesos(inicial.reciboNuevo)}</strong> al bimestre.
+            </p>
+          </div>
+
+          <dl class="metricas">
+            <div>
+              <dt>Paneles de 550 W</dt>
+              <dd data-r="paneles">{inicial.paneles}</dd>
+            </div>
+            <div>
+              <dt>Potencia del sistema</dt>
+              <dd><span data-r="potenciaKwp">{numero.format(inicial.potenciaKwp)}</span> kWp</dd>
+            </div>
+            <div>
+              <dt>Inversión aproximada</dt>
+              <dd data-r="inversion">{pesos(inicial.inversion.minima)} a {pesos(inicial.inversion.maxima)}</dd>
+            </div>
+            <div>
+              <dt>Recuperas tu inversión en</dt>
+              <dd><span data-r="retornoAnios">{numero.format(inicial.retornoAnios)}</span> años</dd>
+            </div>
+            <div>
+              <dt>Ahorro en 25 años</dt>
+              <dd data-r="ahorro25Anios">{pesos(inicial.ahorro25Anios)}</dd>
+            </div>
+            <div>
+              <dt>CO₂ evitado al año</dt>
+              <dd><span data-r="co2">{numero.format(inicial.co2EvitadoToneladasAnio)}</span> t</dd>
+            </div>
+          </dl>
+
+          <p class="aviso aviso-dac" data-aviso-dac hidden>
+            <Icono nombre="warning-circle" />
+            <span>Tu recibo indica tarifa DAC, la más cara de CFE. Es el caso donde los paneles se pagan más rápido.</span>
+          </p>
+          <p class="aviso" data-aviso-bajo hidden>
+            <Icono nombre="info" />
+            <span>Con un recibo menor a {pesos(SUPUESTOS.reciboMinimoRecomendado)} el ahorro suele ser pequeño. Escríbenos y te decimos con honestidad si te conviene.</span>
+          </p>
+
+          <div class="d-flex flex-wrap align-items-center gap-3 mt-4">
+            <a class="btn btn-primary btn-lg" href="#cotizar" data-cotizar-calculo>Quiero esta cotización</a>
+            <span class="small text-body-secondary">Estimación ilustrativa. La cifra final sale de la visita técnica.</span>
+          </div>
+
+          <details class="supuestos">
+            <summary>Cómo calculamos</summary>
+            <ul class="small text-body-secondary mb-0">
+              <li>Convertimos tu recibo a kWh con los bloques de la tarifa 1 de CFE (básico ${TARIFA.domestica.basico.precio.toFixed(2)}, intermedio ${TARIFA.domestica.intermedio.precio.toFixed(2)} y excedente ${TARIFA.domestica.excedente.precio.toFixed(2)} por kWh, IVA incluido), o con la tarifa DAC o PDBT si aplica.</li>
+              <li>Horas solares pico: norte {HSP.norte}, centro {HSP.centro}, sur {HSP.sur}. Rendimiento del sistema: {SUPUESTOS.rendimiento * 100}%.</li>
+              <li>Con medición neta pagas solo el mínimo de CFE. Suponemos un alza de tarifa de {SUPUESTOS.incrementoTarifaAnual * 100}% anual y una pérdida de {SUPUESTOS.degradacionAnual * 100}% anual en los paneles.</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../scripts/calculadora';
+</script>

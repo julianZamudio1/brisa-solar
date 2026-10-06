@@ -1,0 +1,18 @@
+{
+  "name": "brisa-solar-herramientas",
+  "version": "1.0.0",
+  "description": "Pruebas de PHP y WordPress con PHP compilado a WebAssembly",
+  "scripts": {
+    "test:php": "node --test probar-php.mjs",
+    "wordpress": "wp-playground-cli server --blueprint=../wordpress/blueprint-local.json --mount-dir ../wordpress/brisa-solar /wordpress/wp-content/themes/brisa-solar --port=9400"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@php-wasm/node": "^3.1.57",
+    "@php-wasm/universal": "^3.1.57",
+    "@playwright/test": "^1.63.0",
+    "@wp-playground/cli": "^3.1.57",
+    "sharp": "^0.35.5"
+  },
+  "private": true
+}
