@@ -2,6 +2,8 @@
 
 Landing page de captación de prospectos para un instalador de paneles solares (empresa ficticia). Proyecto de portafolio con **HTML5, CSS3 (Bootstrap 5.3 + Sass), JavaScript/TypeScript, Astro, PHP y WordPress**, hecho a mano, sin constructores visuales.
 
+**[Ver la demo en vivo](https://julianzamudio1.github.io/brisa-solar/)** · **[Abrir el tema en WordPress](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/julianZamudio1/brisa-solar/main/wordpress/blueprint.json)** (WordPress Playground: instala el tema con contenido de ejemplo en el navegador, sin cuenta)
+
 ![Inicio de Brisa Solar](docs/capturas/01-inicio.webp)
 
 ## Qué incluye
